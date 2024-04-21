@@ -14,26 +14,26 @@ import java.time.LocalDate;
 @Table(name = "Permissions")
 public class Permission {
     @Id
-    @Column(name = "permissionId", updatable = false)
+    @Column(name = "permission_id", updatable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer permissionId;
-    @Column(name = "permissionName", unique = true, nullable = false)
+    private Long permissionId;
+    @Column(name = "permission_name", unique = true, nullable = false)
     private String permissionName;
     @Column(name = "description")
     private String description;
-    @Column(name = "pageKey", unique = true, nullable = false)
+    @Column(name = "page_key", unique = true, nullable = false)
     private String pageKey;
-    @Column(name = "isActive")
+    @Column(name = "is_active")
     private Boolean isActive;
 
     @ManyToOne
-    @JoinColumn(name = "roleId", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Role role;
 
-    @Column(name = "createAt")
+    @Column(name = "create_at")
     private LocalDate createAt;
-    @Column(name = "updateAt")
+    @Column(name = "update_at")
     private LocalDate updateAt;
 
     public Permission() {

@@ -17,6 +17,12 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!-- Security  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<!-- Interact with DB  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -43,6 +49,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Validator  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<!-- Postgres SQL  -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -55,6 +68,34 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<!-- Google Java Command -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>32.0.0-jre</version>
+		</dependency>
+
+		<!-- javax xml bind data -->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.0</version>
+		</dependency>
+
+		<!-- Json Web Token -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 
 		<!-- The main to run test  -->

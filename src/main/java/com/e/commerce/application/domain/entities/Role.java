@@ -12,19 +12,19 @@ import java.time.LocalDate;
 @Table(name = "Roles")
 public class Role {
     @Id
-    @Column(name = "roleId", updatable = false)
+    @Column(name = "role_id", updatable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer roleId;
-    @Column(name = "roleName", nullable = false)
+    private Long roleId;
+    @Column(name = "role_name", nullable = false)
     private String roleName;
     @Column(name = "description")
     private String description;
-    @Column(name = "isAdministration", nullable = false)
+    @Column(name = "is_administration", nullable = false)
     private Boolean isAdministration;
 
-    @Column(name = "createAt")
+    @Column(name = "create_at")
     private LocalDate createAt;
-    @Column(name = "updateAt")
+    @Column(name = "update_at")
     private LocalDate updateAt;
 
     public Role() {
