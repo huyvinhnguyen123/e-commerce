@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "date_create")
-    private LocalDate dateCreated;
+    private LocalDate dateCreate;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
@@ -56,7 +56,7 @@ public class User implements UserDetails {
 
     public User() {
         this.userId = UUID.randomUUID().toString();
-        this.dateCreated = LocalDate.now();
+        this.dateCreate = LocalDate.now();
         this.createAt = LocalDate.now();
         this.updateAt = LocalDate.now();
     }
@@ -65,7 +65,7 @@ public class User implements UserDetails {
         this.userId = UUID.randomUUID().toString();
         this.userName = userName;
         this.email = email;
-        this.dateCreated = LocalDate.now();
+        this.dateCreate = LocalDate.now();
         this.createAt = LocalDate.now();
         this.updateAt = LocalDate.now();
     }

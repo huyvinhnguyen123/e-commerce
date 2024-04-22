@@ -83,12 +83,12 @@ public class AdminService {
 
         return users.map(user -> {
            UserData userData = new UserData();
-           userData.setId(user.getUserId());
+           userData.setId(user.getUser_id());
            userData.setName(user.getUsername());
            userData.setBirthDate(user.getBirthdate());
            userData.setEmail(user.getEmail());
-           userData.setRole(user.getRoleName());
-           userData.setDateCreate(user.getDateCreate());
+           userData.setRole(user.getRole_name());
+           userData.setDateCreate(user.getDate_create());
 
            log.info(Logger.findListObjectSuccess("users"));
            return userData;
@@ -100,12 +100,12 @@ public class AdminService {
 
         return users.map(user -> {
             UserImageData userData = new UserImageData();
-            userData.setId(user.getUserId());
+            userData.setId(user.getUser_id());
             userData.setName(user.getUsername());
             userData.setBirthDate(user.getBirthdate());
             userData.setEmail(user.getEmail());
-            userData.setRole(user.getRoleName());
-            userData.setDateCreate(user.getDateCreate());
+            userData.setRole(user.getRole_name());
+            userData.setDateCreate(user.getDate_create());
             userData.setImageName(user.getImageName());
             userData.setImagePath(user.getImagePath());
 
