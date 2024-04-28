@@ -4,6 +4,8 @@ import com.e.commerce.application.domain.utils.common.RandomAnyString;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -23,6 +25,11 @@ public class Image {
     private String imagePath;
     @Column(name = "time_upload", nullable = false)
     private LocalDate timeUpload;
+
+    @ManyToOne
+    @JoinColumn(name = "typeId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Type type;
 
     @Column(name = "create_at")
     private LocalDate createAt;

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -52,9 +53,33 @@ public class RoleService {
             createListRolesDefault();
             log.info(Logger.createListObjectSuccess("roles"));
         } else {
-            log.error(Logger.createObjectFail("role"));
-            log.info("Role is existed");
-            throw new DuplicateValueException("Role is existed");
+            List<String> existingRoleNames = roleRepository.findAllReturnName(); // Use a custom method to retrieve type names
+            Set<String> requiredTypes = Set.of("ROLE_ADMIN", "ROLE_USER", "ROLE_SYSTEM", "AUTHENTICATED", "PERMIT_ALL"); // Use a Set for efficient lookups
+
+            List<String> missingRoles = requiredTypes.stream()
+                    .filter(t -> !existingRoleNames.contains(t))
+                    .collect(Collectors.toList());
+
+            if (!missingRoles.isEmpty()) {
+                for (String missingRole : missingRoles) {
+                    Role role = new Role();
+                    role.setRoleName(missingRole);
+
+                    if (role.getRoleName().equals("ROLE_ADMIN") || role.getRoleName().equals("ROLE_SYSTEM")) {
+                        role.setIsAdministration(true);
+                    } else {
+                        role.setIsAdministration(false);
+                    }
+
+                    roleRepository.save(role);
+                    log.info(Logger.createObjectSuccess(role.getRoleName()));
+                }
+            } else {
+                // Log or handle the case where all types already exist
+                log.error(Logger.createObjectFail("role"));
+                log.info("Role is existed");
+                throw new DuplicateValueException("Role is existed");
+            }
         }
     }
 

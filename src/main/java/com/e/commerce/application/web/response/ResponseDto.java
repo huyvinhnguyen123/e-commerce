@@ -34,7 +34,6 @@ public class ResponseDto<T> {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Integer status = HttpStatus.OK.value();
 
-
     /** Response Message */
     private String message = "OK";
 

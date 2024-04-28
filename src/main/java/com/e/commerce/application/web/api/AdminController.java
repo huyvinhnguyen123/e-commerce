@@ -6,9 +6,12 @@ import com.e.commerce.application.domain.dtos.user.UserImageData;
 import com.e.commerce.application.domain.exceptions.HandleRequest;
 import com.e.commerce.application.domain.services.admin.AdminService;
 import com.e.commerce.application.domain.services.admin.RoleService;
+import com.e.commerce.application.domain.services.file.TypeService;
 import com.e.commerce.application.domain.utils.constant.Logger;
 import com.e.commerce.application.web.common.AuthenticatorECommerce;
 import com.e.commerce.application.web.response.ResponseDto;
+import com.e.commerce.application.web.response.base.BaseResponse;
+import com.e.commerce.application.web.response.user.UserImageResponse;
 import com.e.commerce.application.web.response.user.UserMapper;
 import com.e.commerce.application.web.response.user.UserResponse;
 import jakarta.validation.Valid;
@@ -34,6 +37,7 @@ import java.util.Map;
 public class AdminController {
     private final AdminService adminService;
     private final RoleService roleService;
+    private final TypeService typeService;
     private final AuthenticatorECommerce authenticatorECommerce;
 
     @PostMapping("/create-default/roles")
@@ -86,13 +90,14 @@ public class AdminController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
         Page<UserData> userDataPage = adminService.findAllUsers(actualRole, pageable);
         Long totalUsers = userDataPage.getTotalElements();
-        Integer totalPages = userDataPage.getTotalPages();
-        UserResponse userResponse = UserMapper.mapToUser(userDataPage.getContent(), totalUsers, totalPages);
+        int totalPages = userDataPage.getTotalPages();
+        BaseResponse baseResponse = new BaseResponse(page, size, totalPages);
+        UserResponse userResponse = UserMapper.mapToUser(userDataPage.getContent(), totalUsers, baseResponse);
 
         return ResponseEntity.ok(ResponseDto.build().withData(userResponse));
     }
 
-    @GetMapping("/admin/users+image")
+    @GetMapping("/admin/users-image")
     @PreAuthorize("hasAnyRole('ADMIN','SYSTEM')")
     public ResponseEntity<ResponseDto<Object>> findAllUsersWithImage(@RequestParam String roleCode,
                                                                      @RequestParam(defaultValue = "0") int page,
@@ -104,9 +109,18 @@ public class AdminController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
         Page<UserImageData> userDataPage = adminService.findAllUsersWithImage(actualRole, pageable);
         Long totalUsers = userDataPage.getTotalElements();
-        Integer totalPages = userDataPage.getTotalPages();
-        UserResponse userResponse = UserMapper.mapToUserImage(userDataPage.getContent(), totalUsers, totalPages);
+        int totalPages = userDataPage.getTotalPages();
+        BaseResponse baseResponse = new BaseResponse(page, size, totalPages);
+        UserImageResponse userResponse = UserMapper.mapToUserImage(userDataPage.getContent(), totalUsers, baseResponse);
 
         return ResponseEntity.ok(ResponseDto.build().withData(userResponse));
+    }
+
+    @PostMapping("/admin/create-default-types")
+    @PreAuthorize("hasAnyRole('ADMIN','SYSTEM')")
+    public ResponseEntity<ResponseDto<Object>> createDefaultType() {
+        log.info(Logger.requestApi("createDefaultType()"));
+        typeService.createAndCheckTypeDuplicate();
+        return ResponseEntity.ok(ResponseDto.build().withMessage("OK"));
     }
 }
