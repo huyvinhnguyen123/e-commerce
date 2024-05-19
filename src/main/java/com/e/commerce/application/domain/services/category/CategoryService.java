@@ -1,12 +1,15 @@
 package com.e.commerce.application.domain.services.category;
 
+import com.e.commerce.application.domain.dtos.category.CategoryReturnDTO;
 import com.e.commerce.application.domain.dtos.category.CategoryInput;
 import com.e.commerce.application.domain.entities.Category;
+import com.e.commerce.application.domain.projections.CategoryProjection;
 import com.e.commerce.application.domain.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,7 +41,19 @@ public class CategoryService {
         categoryRepository.deleteById(categoryId);
     }
 
-    public List<Category> findAllCategories() {return categoryRepository.findAll();}
+    public List<CategoryReturnDTO> findAllCategories() {
+        List<CategoryProjection> categories = categoryRepository.findAllCategories();
+        List<CategoryReturnDTO> categoryDTOs = new ArrayList<>();
+
+        for (CategoryProjection c : categories){
+            CategoryReturnDTO categoryReturnDTO = new CategoryReturnDTO();
+            categoryReturnDTO.setCategoryId(c.getCategory_id());
+            categoryReturnDTO.setCategoryName(c.getCategory_name());
+
+            categoryDTOs.add(categoryReturnDTO);
+        }
+        return categoryDTOs;
+    }
 
     public String findOneCategory(String categoryName) {return categoryRepository.findByName(categoryName);}
 }
