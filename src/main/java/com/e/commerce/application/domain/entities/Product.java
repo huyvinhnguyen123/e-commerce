@@ -95,29 +95,4 @@ public class Product {
         this.price = price;
         this.point = calculatePoint(price);
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId='" + productId + '\'' +
-                ", sku='" + sku + '\'' +
-                ", name='" + name + '\'' +
-                ", material='" + material + '\'' +
-                ", region='" + region + '\'' +
-                ", brand='" + brand + '\'' +
-                ", price=" + price +
-                ", point=" + point +
-                ", description='" + description + '\'' +
-                ", datePost=" + datePost +
-                ", color='" + color + '\'' +
-                ", length=" + length +
-                ", width=" + width +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", deleteFlag=" + deleteFlag +
-                ", oldSku='" + oldSku + '\'' +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                '}';
-    }
 }
