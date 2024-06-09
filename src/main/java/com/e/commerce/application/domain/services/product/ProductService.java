@@ -30,4 +30,24 @@ public class ProductService {
 
         productRepository.save(product);
     }
+
+    public void updateProduct(String productId, ProductDataInput productDataInput){
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalStateException(
+                "Product with id " + productId + " does not exist"));
+        product.setName(productDataInput.getName());
+        product.setMaterial(productDataInput.getMaterial());
+        product.setRegion(productDataInput.getRegion());
+        product.setBrand(productDataInput.getBrand());
+        product.setPrice(productDataInput.getPrice());
+        product.setDescription(productDataInput.getDescription());
+        product.setColor(productDataInput.getColor());
+        product.generateSku();
+        product.setLength(productDataInput.getLength());
+        product.setWidth(productDataInput.getWidth());
+        product.setHeight(productDataInput.getHeight());
+        product.setWeight(productDataInput.getWeight());
+
+        productRepository.save(product);
+    }
 }
