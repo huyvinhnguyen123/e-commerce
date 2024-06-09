@@ -3,8 +3,11 @@ package com.e.commerce.application.domain.services.product;
 import com.e.commerce.application.domain.dtos.product.ProductDataInput;
 import com.e.commerce.application.domain.entities.Product;
 import com.e.commerce.application.domain.repositories.ProductRepository;
+import com.e.commerce.application.domain.repositories.object.ProductSelect;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -59,5 +62,9 @@ public class ProductService {
         product.setSku("");
         product.setDeleteFlag(1);
         productRepository.save(product);
+    }
+
+    public Page<ProductSelect> findAllProducts(Pageable pageable){
+        return productRepository.findAllProducts(pageable);
     }
 }
