@@ -78,8 +78,8 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/admin/delete-category/{categoryId}")
-    public ResponseEntity<ResponseDto<Object>> deleteCategory(@PathVariable String categoryId){
+    @DeleteMapping("/admin/delete-category")
+    public ResponseEntity<ResponseDto<Object>> deleteCategory(@RequestParam("categoryId") String categoryId){
         Optional<Category> existingCategoryId = categoryRepository.findById(categoryId);
         Map<String, String> responseData = new HashMap<>();
         if(existingCategoryId.isEmpty()){
