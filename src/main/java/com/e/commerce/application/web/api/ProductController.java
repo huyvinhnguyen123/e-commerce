@@ -60,4 +60,23 @@ public class ProductController {
                             .withData(responseData));
         }
     }
+
+    @DeleteMapping("/admin/delete-product")
+    public ResponseEntity<ResponseDto<Object>> deleteProduct(
+            @RequestBody ProductDataInput productDataInput,
+            @RequestParam("productId") String productId){
+        Map<String, String> responseData = new HashMap<>();
+        try {
+            productService.deleteProduct(productId, productDataInput);
+            return ResponseEntity.ok(ResponseDto.build().withMessage("OK"));
+        }catch (Exception e){
+            responseData.put("error", "Internal Server Error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ResponseDto.build()
+                            .withHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .withMessage("Internal Server Error")
+                            .withData(responseData));
+        }
+    }
+
 }
