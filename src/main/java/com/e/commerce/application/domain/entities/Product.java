@@ -74,9 +74,25 @@ public class Product {
         this.region = region;
         this.brand = brand;
         this.price = price;
+        this.point = calculatePoint(price);
         this.description = description;
         this.datePost = LocalDate.now();
         this.createAt = LocalDate.now();
         this.updateAt = LocalDate.now();
+    }
+
+    public void generateSku(){
+        if(name != null && region != null && material != null && color != null){
+            this.sku = name.substring(0, 3) + region.substring(0, 2) + material.substring(0, 3) + color.substring(0, 3);
+        }
+    }
+
+    private Double calculatePoint(double price){
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+        this.point = calculatePoint(price);
     }
 }
