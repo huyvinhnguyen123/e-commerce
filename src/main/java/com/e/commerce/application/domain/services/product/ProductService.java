@@ -50,4 +50,14 @@ public class ProductService {
 
         productRepository.save(product);
     }
+
+    public void deleteProduct(String productId, ProductDataInput productDataInput) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Product with id " + productId + " does not exist"));
+        product.setOldSku(product.getSku());
+        product.setSku("");
+        product.setDeleteFlag(1);
+        productRepository.save(product);
+    }
 }
