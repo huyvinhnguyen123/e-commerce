@@ -53,8 +53,8 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/admin/update-category/{categoryId}")
-    public ResponseEntity<ResponseDto<Object>> updateCategory(@PathVariable String categoryId, @RequestBody CategoryInput categoryInput){
+    @PutMapping("/admin/update-category")
+    public ResponseEntity<ResponseDto<Object>> updateCategory(@RequestParam("categoryId") String categoryId, @RequestBody CategoryInput categoryInput){
         Map<String, String> responseData = new HashMap<>();
         if(categoryInput.getName().isEmpty()){
             responseData.put("error", "update fail");
