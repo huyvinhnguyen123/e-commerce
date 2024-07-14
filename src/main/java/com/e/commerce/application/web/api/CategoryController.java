@@ -1,18 +1,16 @@
 package com.e.commerce.application.web.api;
 
+import com.e.commerce.application.domain.dtos.category.CategoryReturnDTO;
 import com.e.commerce.application.domain.dtos.category.CategoryInput;
 import com.e.commerce.application.domain.entities.Category;
-import com.e.commerce.application.domain.exceptions.HandleRequest;
 import com.e.commerce.application.domain.repositories.CategoryRepository;
 import com.e.commerce.application.domain.services.category.CategoryService;
-import com.e.commerce.application.domain.utils.constant.Logger;
 import com.e.commerce.application.web.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -80,8 +78,8 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/admin/delete-category/{categoryId}")
-    public ResponseEntity<ResponseDto<Object>> deleteCategory(@PathVariable String categoryId){
+    @DeleteMapping("/admin/delete-category")
+    public ResponseEntity<ResponseDto<Object>> deleteCategory(@RequestParam("categoryId") String categoryId){
         Optional<Category> existingCategoryId = categoryRepository.findById(categoryId);
         Map<String, String> responseData = new HashMap<>();
         if(existingCategoryId.isEmpty()){
@@ -107,5 +105,5 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public List<Category> findAllCategories(){return categoryService.findAllCategories();}
+    public List<CategoryReturnDTO> findAllCategories(){return categoryService.findAllCategories();}
 }
