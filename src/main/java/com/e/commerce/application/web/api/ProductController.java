@@ -3,11 +3,16 @@ package com.e.commerce.application.web.api;
 import com.e.commerce.application.domain.dtos.product.ProductDataInput;
 import com.e.commerce.application.domain.entities.Product;
 import com.e.commerce.application.domain.repositories.ProductRepository;
+import com.e.commerce.application.domain.repositories.object.PermissionSelect;
+import com.e.commerce.application.domain.repositories.object.ProductSelect;
 import com.e.commerce.application.domain.services.product.ProductService;
 import com.e.commerce.application.web.response.ResponseDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,4 +84,14 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/products")
+    public ResponseEntity<Page<ProductSelect>> findAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductSelect> products = productService.findAllProducts(pageable);
+
+        return ResponseEntity.ok(products);
+    }
 }

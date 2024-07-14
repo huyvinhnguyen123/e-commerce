@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("api/v1/e-commerce/create-system").permitAll()
                         .requestMatchers("api/v1/register").permitAll()
                         .requestMatchers("api/v1/login").permitAll()
-                                .requestMatchers("api/v1/admin/create-product").permitAll()
+                                .requestMatchers("api/v1/products").permitAll()
                         .anyRequest().authenticated()
 //                        .requestMatchers("api/v1/send-mail").permitAll()
 //                        .requestMatchers("api/v1/reset-pw").permitAll()
